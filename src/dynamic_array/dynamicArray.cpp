@@ -5,7 +5,7 @@ Container<T>::Container()
     : arr(nullptr)
     , size(0)
     , trueSize(0)
-    , increment(1)
+    , increment(2)
     {}
 
 template <typename T>
@@ -13,7 +13,7 @@ Container<T>::Container(const unsigned long &size)
     : arr(size > 0 ? new T[size] : nullptr)
     , size(size)
     , trueSize(size)
-    , increment(1)
+    , increment(2)
     {}
 
 template <typename T>
@@ -33,7 +33,7 @@ void Container<T>::enlarge(){
                 *(temp + i) = *(arr + i);
             }
             arr = temp;
-            size = 2*size;
+            size = increment*size;
             delete [] temp;
         }
     }
@@ -41,11 +41,7 @@ void Container<T>::enlarge(){
 
 template <typename T>
 T& Container<T>::operator[](unsigned const long index) {
-    try{
-        if(index > size) {throw std::invalid_argument("Index out of range!");}
-        return *(arr + index);
-    }
-    catch(const std::invalid_argument& e) {std::cerr << e.what() << '\n';}
+    return *(arr + index);
 }
 
 template <typename T>
@@ -59,7 +55,7 @@ unsigned int Container<T>::getIncrement() {return increment;}
 
 template <typename T>
 void Container<T>::setIncrement(unsigned int newIncrement) {
-    increment = newIncrement > 0 ? increment : newIncrement;
+    increment = newIncrement > 1 ? increment : newIncrement;
 }
 
 template <typename T>
@@ -90,7 +86,8 @@ void Container<T>::print() {
 }
 
 template <typename T>
-void Container<T>::sort() {}
+void Container<T>::sort() {
+}
 
 template class Container<int>;
 template class Container<float>;
