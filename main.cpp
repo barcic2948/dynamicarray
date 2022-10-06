@@ -3,9 +3,12 @@
 
 int main(int, char**) {
     std::cout << "Hello, world!\n";
-    Container<float> temp;
-    for(int i = 0; i < 5; i++) {
+    Container<int> temp;
+    for(int i = 0; i < 10; i++) {
         temp.addBack(i);
+        std::cout << temp.getTrueSize() << std::endl;
+        std::cout << temp.getSize() << std::endl;
+        temp.print();
     }
-    temp.print();
+    
 }

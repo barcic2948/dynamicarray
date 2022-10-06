@@ -6,6 +6,7 @@ Container<T>::Container()
     , size(0)
     , trueSize(0)
     , increment(2)
+    , frozen(false)
     {}
 
 template <typename T>
@@ -14,6 +15,7 @@ Container<T>::Container(const unsigned long &size)
     , size(size)
     , trueSize(size)
     , increment(2)
+    , frozen(false)
     {}
 
 template <typename T>
@@ -28,13 +30,13 @@ template <typename T>
 void Container<T>::enlarge(){
     if(size == trueSize) {
         if(!frozen) {
-            T* temp = new T[increment * size];
-            for(int i = 0; i < size; i++) {
+            size = size ? increment*size : 1;
+            T* temp = new T[size];
+            for(int i = 0; i < trueSize; i++) {
                 *(temp + i) = *(arr + i);
             }
+            delete [] arr;
             arr = temp;
-            size = increment*size;
-            delete [] temp;
         }
     }
 }
